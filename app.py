@@ -1,6 +1,6 @@
 import streamlit as st
 import altair as alt
-from dataProcessing import getData
+from helpers import getData, ui
 
 def main():
 
@@ -17,6 +17,7 @@ def main():
         st.title("Cost per Project for March")
 
         costPerProject = getData.CostPerProject()
+        visualWidth = int((ui.getScreenWidth()*0.85))
 
         tableContainer = st.container(border=True)
         tableContainer.subheader("Cost per Project")
@@ -24,18 +25,19 @@ def main():
             x=alt.X(costPerProject.getX(), sort=None, title="Project"),
             y=alt.Y(costPerProject.getY(), title="Cost"),
         ).properties(
-            width=620,
+            width=visualWidth,
             height=500
         ))
         
         tableContainer = st.container(border=True)
         tableContainer.subheader("Project Table")
-        tableContainer.dataframe(costPerProject.getDataframe(), width=730, hide_index=True)
+        tableContainer.dataframe(costPerProject.getDataframe(), width=visualWidth, hide_index=True)
 
     if(view == "Department View"):
         st.title("Cost per Project per Team for March")
 
         costPerProjectPerTeam = getData.CostPerProjectPerTeam()
+        visualWidth = int((ui.getScreenWidth()*0.85))
 
         team = st.selectbox(
             "Select a team:",
@@ -49,13 +51,13 @@ def main():
             x=alt.X(costPerProjectPerTeam.getX(), sort=None, title="Project"),
             y=alt.Y(costPerProjectPerTeam.getY(), title="Cost"),
         ).properties(
-            width=620,
+            width=(visualWidth),
             height=500
         ))
 
         CostPerProjectPerTeamTableContainer = st.container(border=True)
         CostPerProjectPerTeamTableContainer.subheader("Project Table")
-        CostPerProjectPerTeamTableContainer.dataframe(costPerProjectPerTeam.getDataframe(team), width=730, hide_index=True)
+        CostPerProjectPerTeamTableContainer.dataframe(costPerProjectPerTeam.getDataframe(team), width=visualWidth, hide_index=True)
 
 
 
