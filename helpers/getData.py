@@ -1,37 +1,26 @@
 import pandas as pd
+from helpers import datachart
 
-class CostPerProject():
-    x = 'Project'
-    y = 'Cost'
-    dataframe = ""
+class CostPerProject(datachart.datachart):
     
     def __init__(self):
+        self.title = "Cost per Project"
+        self.x = "Project"
+        self.xTitle = "Project"
+        self.y = "Cost"
+        self.yTitle = "Cost"
         self.dataframe = getOverallProjectCostsDataframe()
-
-    def getX(self):
-        return self.x
-    
-    def getY(self):
-        return self.y
-    
-    def getDataframe(self):
-        return self.dataframe
     
 
-class CostPerProjectPerTeam():
-    x = 'Project'
-    y = 'Cost'
-    dataframe = ""
+class CostPerProjectPerTeam(datachart.datachart):
     teams = ""
 
     def __init__(self):
         self.dataframe, self.teams = getProjectCostPerTeamAndTeamNames()
-    
-    def getX(self):
-        return self.x
-    
-    def getY(self):
-        return self.y
+        self.x = 'Project'
+        self.xTitle = 'Project'
+        self.y = 'Cost'
+        self.yTitle = 'Cost'
 
     def getTeams(self):
         return self.teams
